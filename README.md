@@ -19,6 +19,7 @@ import * as cdk from '@aws-cdk/core';
 import * as s3 from '@aws-cdk/aws-s3';
 
 export class BucketConstruct extends cdk.Construct {
+  // Expose the Bucket
   public readonly bucket: s3.Bucket;
 
   constructor(scope: cdk.Construct, id: string) {
@@ -39,6 +40,7 @@ import * as cdk from '@aws-cdk/core';
 import { BucketConstruct } from './bucket-construct';
 
 export class BucketStack extends cdk.Stack {
+  // Expose the Construct, could just be the Bucket as well
   public readonly construct: BucketConstruct;
 
   constructor(scope: cdk.Construct, id: string) {
@@ -56,6 +58,7 @@ export class BucketStack extends cdk.Stack {
 import * as cdk from '@aws-cdk/core';
 import * as s3 from '@aws-cdk/aws-s3';
 
+// Extend to use Bucket
 interface StackProps extends cdk.StackProps {
   bucket: s3.Bucket;
 }

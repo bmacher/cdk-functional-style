@@ -1,16 +1,14 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
-import { ClassBucketStack } from '../lib/class/class-bucket-stack';
-import { ClassBucketUseStack } from '../lib/class/class-bucket-use-stack';
-import { createBucketStack } from '../lib/functional/create-bucket-stack';
-import { createBucketUseStack } from '../lib/functional/create-bucket-use-stack';
+import { BucketStack, BucketUseStack } from '../lib/object-oriented';
+import { createBucketStack, createBucketUseStack } from '../lib/functional';
 
 const app = new cdk.App();
 
-const classBucketStack = new ClassBucketStack(app, 'ClassBucketStack');
-new ClassBucketUseStack(app, 'ClassBucketUseStack', {
-  bucket: classBucketStack.construct.bucket,
+const objectOrientedBucketStack = new BucketStack(app, 'ObjectOrientedBucketStack');
+new BucketUseStack(app, 'ObjectOrientedBucketUseStack', {
+  bucket: objectOrientedBucketStack.construct.bucket,
 });
 
 const { bucket } = createBucketStack(app, 'FunctionalBucketStack');

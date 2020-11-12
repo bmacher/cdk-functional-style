@@ -5,7 +5,7 @@ interface StackProps extends cdk.StackProps {
   bucket: s3.Bucket;
 }
 
-export class ClassBucketUseStack extends cdk.Stack {
+export class BucketUseStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props: StackProps) {
     super(scope, id, props);
 

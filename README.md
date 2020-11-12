@@ -4,7 +4,9 @@ This repo includes two approaches to work with [AWS CDK](https://github.com/aws/
 
 The use case: 
 1. `Stack a` initiates a `construct` that creates a `S3 Bucket`.
-2. `Stack b` uses the `S3 Bucket` from `Stack a` and shows its ARN in the `Outputs`.
+2. `Stack b` uses the `S3 Bucket` from `Stack a` and shows its ARN in the `Outputs`\*.
+
+\* I know that I can output the Bucket ARN in `stack a`, it is just to have a simplified use case.
 
 *Code will be explained with comments.*
 

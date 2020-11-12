@@ -16,8 +16,7 @@ The use case:
 import * as cdk from '@aws-cdk/core';
 import * as s3 from '@aws-cdk/aws-s3';
 
-export class ClassBucketConstruct extends cdk.Construct {
-  // Expose the Bucket
+export class BucketConstruct extends cdk.Construct {
   public readonly bucket: s3.Bucket;
 
   constructor(scope: cdk.Construct, id: string) {
@@ -28,45 +27,47 @@ export class ClassBucketConstruct extends cdk.Construct {
     });
   }
 }
+
 ```
 
 ### Bucket Stack
 
 ```ts
 import * as cdk from '@aws-cdk/core';
-import { ClassBucketConstruct } from './class-bucket-construct';
+import { BucketConstruct } from './bucket-construct';
 
-export class ClassBucketStack extends cdk.Stack {
-  // Expose the Construct, could just be the Bucket as well
-  public readonly construct: ClassBucketConstruct;
+export class BucketStack extends cdk.Stack {
+  public readonly construct: BucketConstruct;
 
   constructor(scope: cdk.Construct, id: string) {
     super(scope, id);
 
-    this.construct = new ClassBucketConstruct(this, 'ClassBucketConstruct');
+    this.construct = new BucketConstruct(this, 'BucketConstruct');
   }
 }
+
 ```
 
 ### Bucket Use Stack
 
 ```ts
 import * as cdk from '@aws-cdk/core';
+import * as s3 from '@aws-cdk/aws-s3';
 
-// Extend to use bucket
 interface StackProps extends cdk.StackProps {
-  bucketArn: string;
+  bucket: s3.Bucket;
 }
 
-export class ClassBucketUseStack extends cdk.Stack {
+export class BucketUseStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props: StackProps) {
     super(scope, id, props);
 
     new cdk.CfnOutput(this, 'MyBucketArn', {
-      value: props.bucketArn,
+      value: props.bucket.bucketArn,
     });
   }
 }
+
 ```
 
 ### Stack initiation
@@ -74,10 +75,10 @@ export class ClassBucketUseStack extends cdk.Stack {
 ```ts
 const app = new cdk.App();
 
-const classBucketStack = new ClassBucketStack(app, 'ClassBucketStack');
-new ClassBucketUseStack(app, 'ClassBucketUseStack', {
+const objectOrientedBucketStack = new BucketStack(app, 'ObjectOrientedBucketStack');
+new BucketUseStack(app, 'ObjectOrientedBucketUseStack', {
   // Put Bucket into Stack B
-  bucket: classBucketStack.construct.bucket,
+  bucket: objectOrientedBucketStack.construct.bucket,
 });
 ```
 

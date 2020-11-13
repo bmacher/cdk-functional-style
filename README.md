@@ -87,7 +87,7 @@ new BucketUseStack(app, 'ObjectOrientedBucketUseStack', {
 });
 ```
 
-## AWS CDK - Function style
+## AWS CDK - Functional style
 
 ### Create Bucket Construct
 
@@ -165,3 +165,6 @@ createBucketUseStack(app, 'FunctionalBucketUseStack',
   bucket
 );
 ```
+
+### Comparison of Class props vs. Function return
+
